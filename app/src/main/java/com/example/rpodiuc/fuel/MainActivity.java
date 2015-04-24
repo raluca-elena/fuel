@@ -6,10 +6,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 
 public class MainActivity extends Activity {
+    Button btnShowLocation;
+    GPSTracker gps;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,6 +21,22 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
         //getActionBar().setLogo();
         getActionBar().setDisplayShowHomeEnabled(true);
+        btnShowLocation = (Button) findViewById(R.id.show_location);
+        btnShowLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                gps = new GPSTracker((MainActivity.this));
+                if (gps.CanGetLocation()) {
+                    double latitude = gps.getLatitude();
+                    double longitude = gps.getLongitude();
+                    Toast.makeText(getApplicationContext(), "this is the data i get : \nLat" + latitude,
+                            Toast.LENGTH_LONG).show();
+                } else {
+                    gps.showSettingsAlert();
+                }
+            }
+        });
+
     }
 
 

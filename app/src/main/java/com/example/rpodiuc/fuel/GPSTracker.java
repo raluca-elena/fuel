@@ -17,28 +17,24 @@ import android.provider.Settings;
  */
 public class GPSTracker extends Service implements LocationListener {
 
+    private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 10;
+    private static final long MIN_TIME_BW_UPDATES = 1000 * 60 * 1;
     private final Context context;
-
+    protected LocationManager locationManager;
     boolean isGPSEnabled = false;
     boolean canGetLocation = false;
     boolean isNetworkEnabled = false;
-
     double latitude;
     double longitude;
-
-    private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 10;
-    private static final long MIN_TIME_BW_UPDATES = 1000 *60 *1;
-
-    protected LocationManager locationManager;
     Location location;
 
-    public GPSTracker(Context context){
+    public GPSTracker(Context context) {
         this.context = context;
         getLocation();
     }
 
-    public Location getLocation(){
-        try{
+    public Location getLocation() {
+        try {
             locationManager = (LocationManager) context.getSystemService(LOCATION_SERVICE);
             isGPSEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
             isNetworkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
@@ -53,7 +49,7 @@ public class GPSTracker extends Service implements LocationListener {
                     locationManager.requestLocationUpdates(
                             LocationManager.NETWORK_PROVIDER,
                             MIN_TIME_BW_UPDATES,
-                            MIN_DISTANCE_CHANGE_FOR_UPDATES,this
+                            MIN_DISTANCE_CHANGE_FOR_UPDATES, this
                     );
 
 
@@ -70,7 +66,7 @@ public class GPSTracker extends Service implements LocationListener {
                 if (isGPSEnabled) {
                     if (location == null) {
                         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,
-                                MIN_TIME_BW_UPDATES,MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
+                                MIN_TIME_BW_UPDATES, MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
 
                         if (locationManager != null) {
                             location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
@@ -88,7 +84,7 @@ public class GPSTracker extends Service implements LocationListener {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return  location;
+        return location;
     }
 
     public void stopUsingGPS() {
@@ -97,13 +93,13 @@ public class GPSTracker extends Service implements LocationListener {
         }
     }
 
-    public double getLatitude(){
+    public double getLatitude() {
         if (location != null)
             latitude = location.getLatitude();
         return latitude;
     }
 
-    public double getLongitude(){
+    public double getLongitude() {
         if (location != null) {
             longitude = location.getLongitude();
         }
@@ -111,7 +107,7 @@ public class GPSTracker extends Service implements LocationListener {
         return longitude;
     }
 
-    boolean isCanGetLocation() {
+    boolean CanGetLocation() {
         return this.canGetLocation;
     }
 
@@ -127,7 +123,7 @@ public class GPSTracker extends Service implements LocationListener {
             }
         });
 
-        alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener(){
+        alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
 
             @Override
             public void onClick(DialogInterface dialog, int which) {
