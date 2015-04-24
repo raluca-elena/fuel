@@ -29,7 +29,8 @@ public class MainActivity extends Activity {
                 if (gps.CanGetLocation()) {
                     double latitude = gps.getLatitude();
                     double longitude = gps.getLongitude();
-                    Toast.makeText(getApplicationContext(), "this is the data i get : \nLat" + latitude,
+                    Toast.makeText(getApplicationContext(), "latitude : \n" + latitude +
+                            "\nlongitude : \n" + longitude,
                             Toast.LENGTH_LONG).show();
                 } else {
                     gps.showSettingsAlert();
