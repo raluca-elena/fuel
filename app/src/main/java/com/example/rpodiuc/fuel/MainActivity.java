@@ -22,6 +22,7 @@ public class MainActivity extends Activity {
         //getActionBar().setLogo();
         getActionBar().setDisplayShowHomeEnabled(true);
         btnShowLocation = (Button) findViewById(R.id.show_location);
+
         btnShowLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

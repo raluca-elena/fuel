@@ -20,9 +20,6 @@ public class ActivityMap extends FragmentActivity implements OnMapReadyCallback{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_activity_map);
         setUpMapIfNeeded();
-       /* MapFragment mapFragment = (MapFragment) getFragmentManager()
-                .findFragmentById(R.id.mMap);
-        mapFragment.getMapAsync(this);*/
     }
 
     @Override
@@ -71,11 +68,6 @@ public class ActivityMap extends FragmentActivity implements OnMapReadyCallback{
         mMap.addPolyline(new PolylineOptions().geodesic(true)
                 .add(new LatLng(21.291, -157.821))  // Hawaii
                 .add(new LatLng(37.423, -122.091)));  // Mountain View
-
-        mMap.addPolyline(new PolylineOptions().geodesic(true)
-                .add(new LatLng(37.423, -122.091))  // Mountain View
-                .add(new LatLng(21.291, -157.821)));  // Hawaii
-
     }
 
     @Override
