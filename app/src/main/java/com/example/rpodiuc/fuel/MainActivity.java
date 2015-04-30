@@ -65,12 +65,14 @@ public class MainActivity extends Activity {
 
             Toast toast = Toast.makeText(context, text, duration);
             toast.show();*/
-            Intent intent = new Intent(this, MainActivity2Activity.class);
+            //Intent intent = new Intent(this, MainActivity2Activity.class);
+            Intent intent = new Intent(this, ActivityMap.class);
+
             startActivity(intent);
             return true;
         } else if (id == R.id.action_zuzu) {
             Context context = getApplicationContext();
-            CharSequence text = "zuzu!";
+            CharSequence text = "TOUch!";
             int duration = Toast.LENGTH_SHORT;
 
             Toast toast = Toast.makeText(context, text, duration);
