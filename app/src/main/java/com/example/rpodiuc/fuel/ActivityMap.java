@@ -58,23 +58,27 @@ public class ActivityMap extends FragmentActivity implements OnMapReadyCallback{
      */
     private void setUpMap() {
 
-        mMap.addPolyline(new PolylineOptions().geodesic(true)
-                .add(new LatLng(21.291, -157.821))  // Hawaii
-                .add(new LatLng(37.423, -122.091)));  // Mountain View
-
-        gps.showSettingsAlert();
 
         mMap.addMarker(new MarkerOptions().position(new LatLng(gps.getLatitude(), gps.getLongitude())).title("Home"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(gps.getLatitude(), gps.getLongitude()), 16));
+
+        mMap.addPolyline(new PolylineOptions().geodesic(true)
+                .add(new LatLng(21.291, -157.821))  // Hawaii
+                .add(new LatLng(gps.getLatitude(), gps.getLongitude())));  // Mountain View
+
+        //gps.showSettingsAlert();
+
+
 
     }
 
 
-
+    //this code is dead!
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
-                new LatLng(gps.getLatitude(), gps.getLongitude()), 2));
-
+                new LatLng(gps.getLatitude(), gps.getLongitude()), 14));
+        gps.showSettingsAlert();
 
         mMap.addMarker(new MarkerOptions().position(new LatLng(gps.getLatitude(), gps.getLongitude())).title("Home"));
 
