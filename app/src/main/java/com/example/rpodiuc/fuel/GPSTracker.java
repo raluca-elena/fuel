@@ -113,9 +113,11 @@ public class GPSTracker extends Service implements LocationListener {
 
     public void showSettingsAlert() {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
-        alertDialog.setTitle("GPS is settings");
-        alertDialog.setMessage("GPS is not enabled. Do you want to go to the settings menu?");
-        alertDialog.setPositiveButton("Settings", new DialogInterface.OnClickListener() {
+        alertDialog.setTitle("GPS alert");
+
+        alertDialog.setMessage("GPS is not fucked and I can still give you some idea about your damn location " + location.getLatitude() + " " + location.getLongitude());
+
+        /*alertDialog.setPositiveButton("Settings", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
@@ -129,7 +131,7 @@ public class GPSTracker extends Service implements LocationListener {
             public void onClick(DialogInterface dialog, int which) {
                 dialog.cancel();
             }
-        });
+        });*/
 
         alertDialog.show();
 
