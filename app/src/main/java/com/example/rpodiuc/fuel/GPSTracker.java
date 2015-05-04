@@ -14,6 +14,9 @@ import android.provider.Settings;
 import android.util.Log;
 
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.PolylineOptions;
 
 /**
  * Created by rpodiuc on 4/22/15.
@@ -31,10 +34,17 @@ public class GPSTracker extends Service implements LocationListener {
     double longitude;
     Location location;
 
+    public GPSTracker(Context context, GoogleMap m) {
+        this.context = context;
+        instantiateMap(m);
+        getLocation();
+    }
+
     public GPSTracker(Context context) {
         this.context = context;
         getLocation();
     }
+
 
     public Location getLocation() {
         try {
@@ -143,12 +153,18 @@ public class GPSTracker extends Service implements LocationListener {
 
     }
 
+    GoogleMap map;
+    void instantiateMap(GoogleMap myMap){
+        map = myMap;
+    }
+
     @Override
     public void onLocationChanged(Location location) {
         //this.showSettingsAlert();
         Log.i("geolocation latitude ", location.getLatitude() + "");
         Log.i("geolocation longitude ", location.getLongitude() + "");
 
+        map.addMarker(new MarkerOptions().position(new LatLng(location.getLatitude(), location.getLongitude())).title("new point!"));
 
 
     }

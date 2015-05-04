@@ -20,16 +20,10 @@ public class ActivityMap extends FragmentActivity implements OnMapReadyCallback{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        gps = new GPSTracker(ActivityMap.this);
 
         setContentView(R.layout.activity_activity_map);
         setUpMapIfNeeded();
 
-        if (gps.CanGetLocation()) {
-            //do nothing
-        } else {
-            gps.showSettingsAlert();
-        }
     }
 
     @Override
@@ -45,10 +39,25 @@ public class ActivityMap extends FragmentActivity implements OnMapReadyCallback{
             mMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map))
                     .getMap();
             // Check if we were successful in obtaining the map.
-            if (mMap != null) {
+            /*if (mMap != null) {
                 setUpMap();
+            }*/
+
+
+            gps = new GPSTracker(ActivityMap.this, mMap);
+
+            if (gps.CanGetLocation()) {
+                //do nothing
+            } else {
+                gps.showSettingsAlert();
             }
+
+
+            setUpMap();
         }
+
+
+
     }
 
     /**
