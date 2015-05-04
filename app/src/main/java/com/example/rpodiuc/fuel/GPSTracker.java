@@ -11,14 +11,17 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.provider.Settings;
+import android.util.Log;
+
+import com.google.android.gms.maps.GoogleMap;
 
 /**
  * Created by rpodiuc on 4/22/15.
  */
 public class GPSTracker extends Service implements LocationListener {
 
-    private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 10;
-    private static final long MIN_TIME_BW_UPDATES = 1000 * 60 * 1;
+    private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 1;
+    private static final long MIN_TIME_BW_UPDATES = 1000 * 60 * 1;//1 min/2
     private final Context context;
     protected LocationManager locationManager;
     boolean isGPSEnabled = false;
@@ -59,14 +62,17 @@ public class GPSTracker extends Service implements LocationListener {
                         if (location != null) {
                             latitude = location.getLatitude();
                             longitude = location.getLongitude();
+
                         }
                     }
                 }
 
                 if (isGPSEnabled) {
                     if (location == null) {
+                        /*locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,
+                                MIN_TIME_BW_UPDATES, MIN_DISTANCE_CHANGE_FOR_UPDATES, this);*/
                         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,
-                                MIN_TIME_BW_UPDATES, MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
+                                0, 0, this);
 
                         if (locationManager != null) {
                             location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
@@ -139,6 +145,11 @@ public class GPSTracker extends Service implements LocationListener {
 
     @Override
     public void onLocationChanged(Location location) {
+        //this.showSettingsAlert();
+        Log.i("geolocation latitude ", location.getLatitude() + "");
+        Log.i("geolocation longitude ", location.getLongitude() + "");
+
+
 
     }
 

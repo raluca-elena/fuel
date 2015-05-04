@@ -1,5 +1,6 @@
 package com.example.rpodiuc.fuel;
 
+import android.location.Location;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.widget.Toast;
@@ -14,7 +15,7 @@ import com.google.android.gms.maps.model.PolylineOptions;
 
 public class ActivityMap extends FragmentActivity implements OnMapReadyCallback{
 
-    private GoogleMap mMap; // Might be null if Google Play services APK is not available.
+    GoogleMap mMap; // Might be null if Google Play services APK is not available.
     GPSTracker gps;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +66,10 @@ public class ActivityMap extends FragmentActivity implements OnMapReadyCallback{
         mMap.addPolyline(new PolylineOptions().geodesic(true)
                 .add(new LatLng(21.291, -157.821))  // Hawaii
                 .add(new LatLng(gps.getLatitude(), gps.getLongitude())));  // Mountain View
+
+        mMap.addMarker(new MarkerOptions().position(new LatLng(21.291, -157.821)).title("Aloha!"));
+        Location l = gps.getLocation();
+
 
         //gps.showSettingsAlert();
 
