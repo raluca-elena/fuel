@@ -9,6 +9,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.IBinder;
 import android.provider.Settings;
 import android.util.Log;
@@ -17,6 +18,19 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
+
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.nio.charset.Charset;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Random;
 
 /**
  * Created by rpodiuc on 4/22/15.
@@ -163,8 +177,23 @@ public class GPSTracker extends Service implements LocationListener {
         //this.showSettingsAlert();
         Log.i("geolocation latitude ", location.getLatitude() + "");
         Log.i("geolocation longitude ", location.getLongitude() + "");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date dateWithoutTime = null;
+        try {
+            dateWithoutTime = sdf.parse(sdf.format(new Date()));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Log.i("date", dateWithoutTime.toString());
+        try {
+            saveData("blabla", "5");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-        map.addMarker(new MarkerOptions().position(new LatLng(location.getLatitude(), location.getLongitude())).title("new point!"));
+        map.addMarker(new MarkerOptions().position(new LatLng(location.getLatitude(), location.getLongitude())).title("new point! "));
+        map.addPolyline(new PolylineOptions().geodesic(true)
+                .add(new LatLng(location.getLatitude(), location.getLongitude())));
 
 
     }
@@ -188,4 +217,66 @@ public class GPSTracker extends Service implements LocationListener {
     public IBinder onBind(Intent intent) {
         return null;
     }
+
+
+    /* Checks if external storage is available for read and write */
+    public boolean isExternalStorageWritable() {
+        String state = Environment.getExternalStorageState();
+        if (Environment.MEDIA_MOUNTED.equals(state)) {
+            return true;
+        }
+        return false;
+    }
+
+
+    /* Checks if external storage is available to at least read */
+    public boolean isExternalStorageReadable() {
+        String state = Environment.getExternalStorageState();
+        if (Environment.MEDIA_MOUNTED.equals(state) ||
+                Environment.MEDIA_MOUNTED_READ_ONLY.equals(state)) {
+            return true;
+        }
+        return false;
+    }
+
+
+    private void saveData(String s, String data) throws IOException {
+        String root = Environment.getExternalStorageDirectory().toString();
+        Log.i("storage directory *", root);
+        File myDir = new File(root + "/saved_workouts");
+        myDir.mkdirs();
+        Random generator = new Random();
+        int n = 10000;
+        n = generator.nextInt(n);
+        String fname = "Workout-"+ data +".txt";
+        File file = new File (myDir, fname);
+
+        try(PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(file, true)))) {
+            out.println(s);
+        }catch (IOException e) {
+            //exception handling left as an exercise for the reader
+        }
+
+
+
+       /*
+
+        //if (file.exists ()) {};
+        try {
+            FileOutputStream out = new FileOutputStream(file);
+            out.write(s.getBytes(Charset.forName("UTF-8")));
+            out.flush();
+            out.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }*/
+
+
+
+
+
+
+
+        }
 }
