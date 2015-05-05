@@ -245,9 +245,6 @@ public class GPSTracker extends Service implements LocationListener {
         Log.i("storage directory *", root);
         File myDir = new File(root + "/saved_workouts");
         myDir.mkdirs();
-        Random generator = new Random();
-        int n = 10000;
-        n = generator.nextInt(n);
         String fname = "Workout-"+ data +".txt";
         File file = new File (myDir, fname);
 
@@ -256,27 +253,5 @@ public class GPSTracker extends Service implements LocationListener {
         }catch (IOException e) {
             //exception handling left as an exercise for the reader
         }
-
-
-
-       /*
-
-        //if (file.exists ()) {};
-        try {
-            FileOutputStream out = new FileOutputStream(file);
-            out.write(s.getBytes(Charset.forName("UTF-8")));
-            out.flush();
-            out.close();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }*/
-
-
-
-
-
-
-
-        }
+    }
 }
