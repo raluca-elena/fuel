@@ -19,6 +19,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 
+import org.apache.http.impl.cookie.DateUtils;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -177,14 +179,17 @@ public class GPSTracker extends Service implements LocationListener {
         //this.showSettingsAlert();
         Log.i("geolocation latitude ", location.getLatitude() + "");
         Log.i("geolocation longitude ", location.getLongitude() + "");
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        Date dateWithoutTime = null;
-        try {
-            dateWithoutTime = sdf.parse(sdf.format(new Date()));
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        Log.i("date", dateWithoutTime.toString());
+//        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        //          Date dateWithoutTime = sdf.parse(sdf.format(new Date()));
+
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.HOUR_OF_DAY, 0);
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.SECOND, 0);
+        cal.set(Calendar.MILLISECOND, 0);
+        Date dateWithoutTime = cal.getTime();
+        Log.i("date --- ", dateWithoutTime.toString());
+
         try {
             saveData("blabla", "5");
         } catch (IOException e) {
@@ -247,6 +252,7 @@ public class GPSTracker extends Service implements LocationListener {
         myDir.mkdirs();
         String fname = "Workout-"+ data +".txt";
         File file = new File (myDir, fname);
+        Log.i("name of file created" ,file.getName());
 
         try(PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(file, true)))) {
             out.println(s);

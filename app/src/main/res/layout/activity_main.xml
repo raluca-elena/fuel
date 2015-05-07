@@ -18,9 +18,43 @@
         android:text="Show Location" />
 
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
+    <fragment android:name="com.example.rpodiuc.fuel.ItemFragment"
+        android:id="@+id/list"
+        android:layout_weight="1"
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true" />
+
+
+    <TableLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_alignParentEnd="true"
+        android:layout_above="@+id/show_location">
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"></TableRow>
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"></TableRow>
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/editText"
+                android:layout_column="5"
+                android:inputType="numberDecimal"
+                android:layout_span="15" />
+
+        </TableRow>
+
+
+    </TableLayout>
 
 </RelativeLayout>

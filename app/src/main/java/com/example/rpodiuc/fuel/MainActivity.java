@@ -11,7 +11,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements ItemFragment.OnFragmentInteractionListener {
     Button btnShowLocation;
     GPSTracker gps;
 
@@ -26,7 +26,7 @@ public class MainActivity extends Activity {
         btnShowLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                gps = new GPSTracker((MainActivity.this));
+                /*gps = new GPSTracker((MainActivity.this));
                 if (gps.CanGetLocation()) {
                     double latitude = gps.getLatitude();
                     double longitude = gps.getLongitude();
@@ -35,7 +35,7 @@ public class MainActivity extends Activity {
                             Toast.LENGTH_LONG).show();
                 } else {
                     gps.showSettingsAlert();
-                }
+                }*/
             }
         });
 
@@ -84,5 +84,10 @@ public class MainActivity extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onFragmentInteraction(String id) {
+
     }
 }
