@@ -7,11 +7,13 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.GridView;
 import android.widget.Toast;
 
 
-public class MainActivity extends Activity implements ItemFragment.OnFragmentInteractionListener {
+public class MainActivity extends Activity {
     Button btnShowLocation;
     GPSTracker gps;
 
@@ -23,10 +25,10 @@ public class MainActivity extends Activity implements ItemFragment.OnFragmentInt
         getActionBar().setDisplayShowHomeEnabled(true);
         btnShowLocation = (Button) findViewById(R.id.show_location);
 
-        btnShowLocation.setOnClickListener(new View.OnClickListener() {
+        /*btnShowLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*gps = new GPSTracker((MainActivity.this));
+                gps = new GPSTracker((MainActivity.this));
                 if (gps.CanGetLocation()) {
                     double latitude = gps.getLatitude();
                     double longitude = gps.getLongitude();
@@ -35,7 +37,19 @@ public class MainActivity extends Activity implements ItemFragment.OnFragmentInt
                             Toast.LENGTH_LONG).show();
                 } else {
                     gps.showSettingsAlert();
-                }*/
+                }
+            }
+        });
+*/
+
+        GridView gridview = (GridView) findViewById(R.id.gridview);
+        gridview.setAdapter(new ImageAdapter(this));
+
+        gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View v,
+                                    int position, long id) {
+                Toast.makeText(MainActivity.this, "" + position,
+                        Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -86,8 +100,5 @@ public class MainActivity extends Activity implements ItemFragment.OnFragmentInt
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void onFragmentInteraction(String id) {
 
-    }
 }

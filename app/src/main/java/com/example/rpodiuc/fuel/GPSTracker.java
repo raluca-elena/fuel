@@ -51,13 +51,21 @@ public class GPSTracker extends Service implements LocationListener {
     Location location;
 
     public GPSTracker(Context context, GoogleMap m) {
-        this.context = context;
+
+        if (context == null)
+            this.context = super.getApplicationContext();
+        else
+            this.context = context;
+
         instantiateMap(m);
         getLocation();
     }
 
     public GPSTracker(Context context) {
-        this.context = context;
+        if (context == null)
+            this.context = super.getApplicationContext();
+        else
+            this.context = context;
         getLocation();
     }
 
