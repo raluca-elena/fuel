@@ -17,33 +17,20 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 
 public class ActivityMap extends FragmentActivity implements OnMapReadyCallback{
-  Context context;
-
-    void f() {
-        if (context == null){
-            //Toast toast = Toast.makeText(context, "null context",  Toast.LENGTH_SHORT);
-            //toast.show();
-            Log.i("context null",super.toString());
-        }
-    }
-
+    Context context;
     GoogleMap mMap; // Might be null if Google Play services APK is not available.
     GPSTracker gps;
-    //@Override
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         context = super.getApplicationContext();
-        f();
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_activity_map);
         setUpMapIfNeeded();
-
     }
 
-    //@Override
+    @Override
     protected void onResume() {
-         super.onResume();
+        super.onResume();
         setUpMapIfNeeded();
     }
 
@@ -53,30 +40,19 @@ public class ActivityMap extends FragmentActivity implements OnMapReadyCallback{
             // Try to obtain the map from the SupportMapFragment.
             mMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map))
                     .getMap();
-
-
-
-
-
+            //this stuff doesn't make any sense...should work but does not
             // Check if we were successful in obtaining the map.
-            /*if (mMap != null) {
-                setUpMap();
-            }*/
-
-
+      /*if (mMap != null) {
+         setUpMap();
+      }*/
             gps = new GPSTracker(context, mMap);
-
             if (gps.CanGetLocation()) {
                 //do nothing
             } else {
                 gps.showSettingsAlert();
             }
-
-
             setUpMap();
         }
-
-
 
     }
 
@@ -87,8 +63,6 @@ public class ActivityMap extends FragmentActivity implements OnMapReadyCallback{
      * This should only be called once and when we are sure that {@link #mMap} is not null.
      */
     private void setUpMap() {
-
-
         mMap.addMarker(new MarkerOptions().position(new LatLng(gps.getLatitude(), gps.getLongitude())).title("Home"));
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(gps.getLatitude(), gps.getLongitude()), 16));
 

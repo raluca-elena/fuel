@@ -184,12 +184,8 @@ public class GPSTracker extends Service implements LocationListener {
 
     @Override
     public void onLocationChanged(Location location) {
-        //this.showSettingsAlert();
         Log.i("geolocation latitude ", location.getLatitude() + "");
         Log.i("geolocation longitude ", location.getLongitude() + "");
-//        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        //          Date dateWithoutTime = sdf.parse(sdf.format(new Date()));
-
         Calendar cal = Calendar.getInstance();
         cal.set(Calendar.HOUR_OF_DAY, 0);
         cal.set(Calendar.MINUTE, 0);
